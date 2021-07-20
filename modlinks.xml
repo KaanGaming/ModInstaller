@@ -72,7 +72,7 @@
 			<Type>Skin</Type>
 			<Name>Graig Knight</Name>
 			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1tmrY8ESKNRXyKhV93Uat2JCrvGjpwYby]]></ZipLink>
-			<About>Skin by Graig.</About>
+			<About>Skin by Graig. Meme skin, may improve your skills in game.</About>
 		</ModLink>
 		<ModLink>
 			<Type>Skin</Type>
@@ -84,19 +84,37 @@
 			<Type>Skin</Type>
 			<Name>Acid</Name>
 			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1W-dc89PeSxHIUaX0hNPE0cPAYUwQkBys]]></ZipLink>
-			<About>Skin by Mickely.</About>
+			<About>Skin by Mickely. Adds bold green theme to The Knight.</About>
 		</ModLink>
 		<ModLink>
 			<Type>Skin</Type>
 			<Name>Angel Knight</Name>
 			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1RrT7v1qCNkpr4Dgz8RSyVJSo9v4ksf9A]]></ZipLink>
-			<About>Skin by Akivaq.</About>
+			<About>Skin by Akivaq. Adds angelic theme to The Knight.</About>
 		</ModLink>
 		<ModLink>
 			<Type>Skin</Type>
 			<Name>Angel Knight 1.1</Name>
 			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1_LgcwjKvHmIAMqA5Wq2dk5qYnjVcyu6w]]></ZipLink>
-			<About>Skin by Akivaq.</About>
+			<About>Skin by Akivaq. Adds angelic theme to The Knight and its charms.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Blood Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1Sw4sAh6x_U9FOGK9E3MaMB86ePbtmDxW]]></ZipLink>
+			<About>Skin by Akivaq. Adds demonic theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Christmas Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1AgWucMoQWO41v1FH-t4DuPyEYUOqh0dv]]></ZipLink>
+			<About>Skin by MageGi. Adds a joyful Christmas theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Clean Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1XLUJUTlYzucgIhDrINDgpWYuF-VE8HVb]]></ZipLink>
+			<About>Skin by Moitjae06. Adds minor revamps to The Knight, in order to make it look more smooth.</About>
 		</ModLink>
 	</ModList>
 </ModLinks>
