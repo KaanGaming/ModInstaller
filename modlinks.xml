@@ -116,5 +116,47 @@
 			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1XLUJUTlYzucgIhDrINDgpWYuF-VE8HVb]]></ZipLink>
 			<About>Skin by Moitjae06. Adds minor revamps to The Knight, in order to make it look more smooth.</About>
 		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Demon Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=11aYOkqHuAhI60nQ2UVUy3Y5afM97BQc-]]></ZipLink>
+			<About>Skin by Mickely. Adds demonic and bold red theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Ghost - Translucent</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1uNV0bMPUsuSlIIGF6U73dW89IjrlNCBi]]></ZipLink>
+			<About>Skin by Mickely. Adds blue tinted ghost theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Ghost</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1g8qjFZGq_UdGB0qGu5Mv5SKfJkA8NOn4]]></ZipLink>
+			<About>Skin by Mickely. Adds blue tinted ghost theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Hat Kid</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=10SjzAtuKiNaon--CH1UwDPrf3s7EAiCv]]></ZipLink>
+			<About>Skin by MTmerm. Changes The Knight to make it look like Hat Kid from A Hat In Time.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Infected</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1FgDBGZrkUT02l9v4GwaPKqTBR9JH_jju]]></ZipLink>
+			<About>Author unknown. Makes The Knight and its abilities into orange tint to make it match with the infection.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Invisibility</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1tTK8C8D3mueHHA9ZEjXCP4yRcCSszkSf]]></ZipLink>
+			<About>Author unknown. Makes The Knight invisible, except for its abilities.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Iron</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1tTK8C8D3mueHHA9ZEjXCP4yRcCSszkSf]]></ZipLink>
+			<About>Skin by Mickely. Adds molten iron theme to The Knight.</About>
+		</ModLink>
 	</ModList>
 </ModLinks>
