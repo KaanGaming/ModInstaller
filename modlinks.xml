@@ -53,6 +53,22 @@
 			</Dependencies>
 		</ModLink>
 		<ModLink>
+			<Type>Mod</Type>
+			<Name>Custom Knight</Name>
+			<Description>Allows for the player character’s sprites to be edited by modifying image files in the Hollow Knight directory</Description>
+			<Files>
+				<File>
+					<Name>CustomKnight.dll</Name>
+					<SHA1>700e82620297aad6f6a0e21c0f149bfd22e4218e</SHA1>
+				</File>
+			</Files>
+			<Link><![CDATA[https://github.com/PrashantMohta/HollowKnight.CustomKnight/releases/download/v1.2.4c/CustomKnight.zip]]></Link>
+			<Dependencies>
+				<string>Modding API</string>
+				<string>ModCommon</string>
+			</Dependencies>
+		</ModLink>
+		<ModLink>
 			<Type>Skin</Type>
 			<Name>TEST SKIN</Name>
 			<ZipLink>Test</ZipLink>
