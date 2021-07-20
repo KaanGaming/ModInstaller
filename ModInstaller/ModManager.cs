@@ -23,7 +23,7 @@ namespace ModInstaller
     {
         private const string ModLinks = "https://raw.githubusercontent.com/KaanGaming/SkinInstaller/master/modlinks.xml";
 
-        private const string SkinInstallerVersion = "v0.0.1";
+        private const string SkinInstallerVersion = "v1.0.0";
         private const string Version = "v8.7.1";
 
         private readonly List<string> _defaultPaths = new List<string>();
@@ -128,7 +128,7 @@ namespace ModInstaller
             PopulateList();
             FillPanel();
             ResizeUI();
-            Text = "Skin Installer " + SkinInstallerVersion + " (Fork version " + Version + ")";
+            Text = "Skin Installer " + SkinInstallerVersion + " (Fork version " + Version + ") by Kaan";
         }
         
         #region Loading and building the mod manager
