@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+
+<!--
+
+    To update, change, or add a mod link:
+    1.   Go to https://drive.google.com/drive/folders/0B_b9PFqx_PR9Um9MeFZMV21oWGs?usp=sharing
+    2.   Select the mod you want to get the link for and open the folder.
+    3.   Open the .zip file of the mod.
+    4.   Select "Get sharable link"
+    5.   Copy the link (example from lightbringer: https://drive.google.com/file/d/1JGfVZ9UpkkI8r6DdOm9-dFEcSkL6Ouf9/view?usp=sharing )
+    6.   Take the ID (e.g., for the previous link: "1JGfVZ9UpkkI8r6DdOm9-dFEcSkL6Ouf9"), and replace the old ID if updating
+    6.5  If adding a new mod, replace the id in the template <![CDATA[https://drive.google.com/uc?export=download&id=YOUR_ID_HERE]]>
+    7.   If adding a new mod, create a ModLinks element similar to the others, only changing the Name, File, SHA1, and Link.
+    8.   Done.
+
+-->
+
+<ModLinks xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<DriveLink>https://drive.google.com/drive/u/0/folders/1lnjtSYMfRe1LyA_qSq2CoXKI6NRm_I-e</DriveLink>
+	<Installer>
+	    <Link><![CDATA[https://radiance.host/mods/ModInstaller.exe]]></Link>
+	    <SHA1>67CBF380062125C8B3408341D0724E8A0A4726EA</SHA1>
+	    <AULink><![CDATA[https://github.com/Ayugradow/ModInstaller-Auto-Updater/releases/download/v1.0/ModInstallerAutoUpdater.exe]]></AULink>
+	</Installer>
+	<ModList>
+		<ModLink>
+			<Type>Mod</Type>
+			<Name>Modding API</Name>
+			<Files>
+				<File>
+					<Name>Assembly-CSharp.dll</Name>
+					<SHA1>E880EA1B2B4B57FBD6ECA36B26746F08FF4EEF9F</SHA1>
+					<Patch>1.4.3.2</Patch>
+				</File>
+			</Files>
+			<Link><![CDATA[https://drive.google.com/uc?export=download&id=1lMvPf30KGvHKcOW-q0-tQnJ_zyljmyex]]></Link>
+			<UnixLink><![CDATA[https://drive.google.com/uc?export=download&id=1lMvPf30KGvHKcOW-q0-tQnJ_zyljmyex]]></UnixLink>
+			<Dependencies />
+		</ModLink>
+		<ModLink>
+			<Type>Mod</Type>
+			<Name>ModCommon</Name>
+			<Description>Library used by many mods.</Description>
+			<Files>
+				<File>
+					<Name>ModCommon.dll</Name>
+					<SHA1>12364E85DA46F3D4652B5E17FC4478E8550B9515</SHA1>
+				</File>
+			</Files>
+			<Link><![CDATA[https://drive.google.com/uc?export=download&id=1TVAIN2Oh_RJwStoxkReoyRxVmrqju9wg]]></Link>
+			<Dependencies>
+				<string>Modding API</string>
+			</Dependencies>
+		</ModLink>
+		<ModLink>
+			<Type>Mod</Type>
+			<Name>Custom Knight</Name>
+			<Description>Allows for the player character’s sprites to be edited by modifying image files in the Hollow Knight directory</Description>
+			<Files>
+				<File>
+					<Name>CustomKnight.dll</Name>
+					<SHA1>700e82620297aad6f6a0e21c0f149bfd22e4218e</SHA1>
+				</File>
+			</Files>
+			<Link><![CDATA[https://github.com/PrashantMohta/HollowKnight.CustomKnight/releases/download/v1.2.4c/CustomKnight.zip]]></Link>
+			<Dependencies>
+				<string>Modding API</string>
+				<string>ModCommon</string>
+			</Dependencies>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Graig Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1tmrY8ESKNRXyKhV93Uat2JCrvGjpwYby]]></ZipLink>
+			<About>Skin by Graig. Meme skin, may improve your skills in game.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Grimm Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1lRKnaiCgz3Qrx3-w7ikH6Q_XzreFlyI0]]></ZipLink>
+			<About>Skin by Mola. Adds Grimm Troupe DLC themed cosmetics to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Acid</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1W-dc89PeSxHIUaX0hNPE0cPAYUwQkBys]]></ZipLink>
+			<About>Skin by Mickely. Adds bold green theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Angel Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1RrT7v1qCNkpr4Dgz8RSyVJSo9v4ksf9A]]></ZipLink>
+			<About>Skin by Akivaq. Adds angelic theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Angel Knight 1.1</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1_LgcwjKvHmIAMqA5Wq2dk5qYnjVcyu6w]]></ZipLink>
+			<About>Skin by Akivaq. Adds angelic theme to The Knight and its charms.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Blood Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1Sw4sAh6x_U9FOGK9E3MaMB86ePbtmDxW]]></ZipLink>
+			<About>Skin by Akivaq. Adds demonic theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Christmas Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1AgWucMoQWO41v1FH-t4DuPyEYUOqh0dv]]></ZipLink>
+			<About>Skin by MageGi. Adds a joyful Christmas theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Clean Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1XLUJUTlYzucgIhDrINDgpWYuF-VE8HVb]]></ZipLink>
+			<About>Skin by Moitjae06. Adds minor revamps to The Knight, in order to make it look more smooth.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Demon Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=11aYOkqHuAhI60nQ2UVUy3Y5afM97BQc-]]></ZipLink>
+			<About>Skin by Mickely. Adds demonic and bold red theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Ghost - Translucent</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1uNV0bMPUsuSlIIGF6U73dW89IjrlNCBi]]></ZipLink>
+			<About>Skin by Mickely. Adds blue tinted ghost theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Ghost</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1g8qjFZGq_UdGB0qGu5Mv5SKfJkA8NOn4]]></ZipLink>
+			<About>Skin by Mickely. Adds blue tinted ghost theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Hat Kid</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=10SjzAtuKiNaon--CH1UwDPrf3s7EAiCv]]></ZipLink>
+			<About>Skin by MTmerm. Changes The Knight to make it look like Hat Kid from A Hat In Time.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Infected</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1FgDBGZrkUT02l9v4GwaPKqTBR9JH_jju]]></ZipLink>
+			<About>Author unknown. Makes The Knight and its abilities into orange tint to make it match with the infection.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Invisibility</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1tTK8C8D3mueHHA9ZEjXCP4yRcCSszkSf]]></ZipLink>
+			<About>Author unknown. Makes The Knight invisible, except for its abilities.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Iron</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1MoJrvHAFnpzyWmEG_Gy9YRxkAfelbcIM]]></ZipLink>
+			<About>Skin by Mickely. Adds molten iron theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>KH2 Sora Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1urGPRwyxJOcBJU9VMpgo7gV1Ntx9Vkb1]]></ZipLink>
+			<About>Skin by Maximal Nightwing. Reworks The Knight into Sora from Kingdom Hearts II.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Mustard Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1MGjEqSGb59P1aqND_5axWNe-RpuhXjSx]]></ZipLink>
+			<About>Author unknown. Adds mustard theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Neon</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1MGjEqSGb59P1aqND_5axWNe-RpuhXjSx]]></ZipLink>
+			<About>Skin by Mickely.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>OWO Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1bKfjR7srU8iwzVI4niNld2AfChXDxTmZ]]></ZipLink>
+			<About>Skin by MTmerm. Self-explanatory. Adds OwO face to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Prince of Axolomeh</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1A3ZknA423z08ZF4SvfklqqGmvUvUjsI9]]></ZipLink>
+			<About>Skin by megmav. Reworks The Knight into an axolotl.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>pure vessel</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1XkHRReQJxvVbaD4aT3_8S5prTS1l3z2t]]></ZipLink>
+			<About>Skin by Emray. Transforms The Knight into Pure Vessel.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Purple Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1x8eXE1VVvbq7aayTMRm-Qm958YuRYWwh]]></ZipLink>
+			<About>Skin by VoidIn. Adds purple tint to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Rainbow Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1SCaNmXqxSHxJpdU1tgV_pT8T-3Kqmst4]]></ZipLink>
+			<About>Skin by Shiga. Adds rainbow to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Rainy Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1GQZAyqa8IxqLpkww7hwOpFvt7LiOM40J]]></ZipLink>
+			<About>Skin by megmav.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Redwing</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1_absx41izGgluYU0owGWH1U0CpevPvf6]]></ZipLink>
+			<About>Author unknown. Adds red tint to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>RegalKnight (purple)</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1fwYubEWaqQmtgvSmoiLtMgSPjIVJsBHf]]></ZipLink>
+			<About>Made by Knightmere.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Shadow</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1cFMoDM4TeTQpWwgf1KOCaIg2lDt6zKVV]]></ZipLink>
+			<About>Made by Mickely. Makes The Knight into a shadow.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>the hollow knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1rCU0OF7OWvqFjmi61HiZRnmTw_kVWuml]]></ZipLink>
+			<About>Made by Emray. Transforms The Knight into The Hollow Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Weary Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1_x5Gy74H_7HH1F8Fy_RhmxKO2Gs5e5Dk]]></ZipLink>
+			<About>Made by Mickely.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>White Cloak</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=15ulr_HdcJA70QlIO1jdUjP7rvuljWP26]]></ZipLink>
+			<About>Made by 753. Adds a white cloak to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Yeah Whatever 3.0</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1RbCcEpDolgzTCtiIAxgMmeHjN9q4yMRn]]></ZipLink>
+			<About>Made by SFGrenade. EVERYTHING IS RAINBOW</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Zote</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=14g7G7ZQipI_8AN9f8-qZ08tC-taB5sk-]]></ZipLink>
+			<About>Made by DFTz. Transforms The Knight into Zote the Mighty.</About>
+		</ModLink>
+	</ModList>
+</ModLinks>
