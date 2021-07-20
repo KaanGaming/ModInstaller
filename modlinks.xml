@@ -70,15 +70,93 @@
 		</ModLink>
 		<ModLink>
 			<Type>Skin</Type>
-			<Name>TEST SKIN</Name>
-			<ZipLink>Test</ZipLink>
-			<About>This is a test skin, installing it actually causes an error because the link is invalid but you get the point</About>
+			<Name>Graig Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1tmrY8ESKNRXyKhV93Uat2JCrvGjpwYby]]></ZipLink>
+			<About>Skin by Graig. Meme skin, may improve your skills in game.</About>
 		</ModLink>
 		<ModLink>
 			<Type>Skin</Type>
-			<Name>Graig Knight</Name>
-			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1tmrY8ESKNRXyKhV93Uat2JCrvGjpwYby]]></ZipLink>
-			<About>Skin by Graig.</About>
+			<Name>Grimm Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1lRKnaiCgz3Qrx3-w7ikH6Q_XzreFlyI0]]></ZipLink>
+			<About>Skin by Mola. Adds Grimm Troupe DLC themed cosmetics to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Acid</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1W-dc89PeSxHIUaX0hNPE0cPAYUwQkBys]]></ZipLink>
+			<About>Skin by Mickely. Adds bold green theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Angel Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1RrT7v1qCNkpr4Dgz8RSyVJSo9v4ksf9A]]></ZipLink>
+			<About>Skin by Akivaq. Adds angelic theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Angel Knight 1.1</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1_LgcwjKvHmIAMqA5Wq2dk5qYnjVcyu6w]]></ZipLink>
+			<About>Skin by Akivaq. Adds angelic theme to The Knight and its charms.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Blood Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1Sw4sAh6x_U9FOGK9E3MaMB86ePbtmDxW]]></ZipLink>
+			<About>Skin by Akivaq. Adds demonic theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Christmas Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1AgWucMoQWO41v1FH-t4DuPyEYUOqh0dv]]></ZipLink>
+			<About>Skin by MageGi. Adds a joyful Christmas theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Clean Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1XLUJUTlYzucgIhDrINDgpWYuF-VE8HVb]]></ZipLink>
+			<About>Skin by Moitjae06. Adds minor revamps to The Knight, in order to make it look more smooth.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Demon Knight</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=11aYOkqHuAhI60nQ2UVUy3Y5afM97BQc-]]></ZipLink>
+			<About>Skin by Mickely. Adds demonic and bold red theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Ghost - Translucent</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1uNV0bMPUsuSlIIGF6U73dW89IjrlNCBi]]></ZipLink>
+			<About>Skin by Mickely. Adds blue tinted ghost theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Ghost</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1g8qjFZGq_UdGB0qGu5Mv5SKfJkA8NOn4]]></ZipLink>
+			<About>Skin by Mickely. Adds blue tinted ghost theme to The Knight.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Hat Kid</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=10SjzAtuKiNaon--CH1UwDPrf3s7EAiCv]]></ZipLink>
+			<About>Skin by MTmerm. Changes The Knight to make it look like Hat Kid from A Hat In Time.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Infected</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1FgDBGZrkUT02l9v4GwaPKqTBR9JH_jju]]></ZipLink>
+			<About>Author unknown. Makes The Knight and its abilities into orange tint to make it match with the infection.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Invisibility</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1tTK8C8D3mueHHA9ZEjXCP4yRcCSszkSf]]></ZipLink>
+			<About>Author unknown. Makes The Knight invisible, except for its abilities.</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Iron</Name>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1tTK8C8D3mueHHA9ZEjXCP4yRcCSszkSf]]></ZipLink>
+			<About>Skin by Mickely. Adds molten iron theme to The Knight.</About>
 		</ModLink>
 	</ModList>
 </ModLinks>
