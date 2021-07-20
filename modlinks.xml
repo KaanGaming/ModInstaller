@@ -61,7 +61,7 @@
 		<ModLink>
 			<Type>Skin</Type>
 			<Name>Graig Knight</Name>
-			<ZipLink>https://drive.google.com/uc?export=download&id=1tmrY8ESKNRXyKhV93Uat2JCrvGjpwYby</ZipLink>
+			<ZipLink><![CDATA[https://drive.google.com/uc?export=download&id=1tmrY8ESKNRXyKhV93Uat2JCrvGjpwYby]]></ZipLink>
 			<About>Skin by Graig.</About>
 		</ModLink>
 	</ModList>
