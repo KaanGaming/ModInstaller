@@ -519,6 +519,9 @@ namespace ModInstaller
                 if (_allMods.Contains(mod.Name)) 
                     continue;
 
+                if (mod.Name != "Custom Knight" && mod.Name != "ModCommon")
+                    continue;
+
                 var entry = new ModField
                 {
                     Name = new Label(),
@@ -1009,7 +1012,7 @@ namespace ModInstaller
 
             foreach (FileInfo modsFile in modsFiles)
             {
-                if (modsFile.Name != "ModCommon.dll" && modsFile.Name != "Assembly-CSharp.dll")
+                if (modsFile.Name != "ModCommon.dll" && modsFile.Name != "Assembly-CSharp.dll" && modsFile.Name != "CustomKnight.dll")
                     continue;
                 Mod mod;
 
@@ -1028,11 +1031,11 @@ namespace ModInstaller
                 panel.Controls.Add(entry.InstallButton);
                 panel.Controls.Add(entry.ReadmeButton);
 
-                bool isGDriveMod = _modsList.Any(m => m.Files.Keys.Contains(Path.GetFileName(modsFile.Name)));
+                bool isGDriveMod = _modsList.Any(m => m.Files.ContainsKey(Path.GetFileName(modsFile.Name)));
 
                 if (isGDriveMod)
                 {
-                    mod = _modsList.First(m => m.Files.Keys.Contains(Path.GetFileName(modsFile.Name)));
+                    mod = _modsList.First(m => m.Files.ContainsKey(Path.GetFileName(modsFile.Name)));
                 }
                 else
                 {
@@ -1108,8 +1111,10 @@ namespace ModInstaller
                 _installedMods.Add(skin.Name);
             }
 
-            /*foreach (FileInfo file in disabledFiles)
+            foreach (FileInfo file in disabledFiles)
             {
+                if (file.Name != "ModCommon.dll" && file.Name != "Assembly-CSharp.dll" && file.Name != "CustomKnight.dll")
+                    continue;
                 Mod mod;
 
                 var entry = new ModField
@@ -1127,11 +1132,11 @@ namespace ModInstaller
                 panel.Controls.Add(entry.InstallButton);
                 panel.Controls.Add(entry.ReadmeButton);
                 
-                bool isGDriveMod = _modsList.Any(m => m.Files.Keys.Contains(Path.GetFileName(file.Name)));
+                bool isGDriveMod = _modsList.Any(m => m.Files.ContainsKey(Path.GetFileName(file.Name)));
 
                 if (isGDriveMod)
                 {
-                    mod = _modsList.First(m => m.Files.Keys.Contains(Path.GetFileName(file.Name)));
+                    mod = _modsList.First(m => m.Files.ContainsKey(Path.GetFileName(file.Name)));
                 }
                 else
                 {
@@ -1154,7 +1159,7 @@ namespace ModInstaller
                 _modEntries.Add(entry);
                 _allMods.Add(mod.Name);
                 _installedMods.Add(mod.Name);
-            }*/
+            }
 
             foreach ((FileInfo file, bool enabled) in modsFiles.Select(x => (x, true)).Union(disabledFiles.Select(x => (x, false))))
             {
