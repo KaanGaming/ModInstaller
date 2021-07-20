@@ -92,7 +92,7 @@ namespace ModInstaller
             //
             //button4
             //
-            _button4.Text = "If you liked this installer, please consider making a donation!";
+            _button4.Text = "About Skin Installer...";
             _button4.Click += DonateButtonClick;
             // 
             // ModManager

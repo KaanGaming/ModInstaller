@@ -125,7 +125,7 @@ namespace ModInstaller
             {
                 if (Path.GetExtension(mod) == ".zip")
                 {
-                    InstallMods(mod, Properties.Settings.Default.temp, true);
+                    InstallMods(mod, Properties.Settings.Default.temp, true, true);
                 }
                 else
                 {
@@ -162,10 +162,7 @@ namespace ModInstaller
 
         private void DonateButtonClick(object sender, EventArgs e)
         {
-            Process.Start
-            (
-                "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=G5KYSS3ULQFY6&lc=US&item_name=HK%20ModInstaller&item_number=HKMI&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"
-            );
+            MessageBox.Show("Skin Installer made by @KaanGaming#7447\n\nMod Manager made by @Gradow#9473");
         }
 
         private void SearchOnGotFocus(object sender, EventArgs e)

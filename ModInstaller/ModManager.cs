@@ -21,8 +21,9 @@ namespace ModInstaller
 {
     public partial class ModManager : Form
     {
-        private const string ModLinks = "https://raw.githubusercontent.com/Ayugradow/ModInstaller/master/modlinks.xml";
+        private const string ModLinks = "https://raw.githubusercontent.com/KaanGaming/SkinInstaller/master/modlinks.xml";
 
+        private const string SkinInstallerVersion = "v0.0.1";
         private const string Version = "v8.7.1";
 
         private readonly List<string> _defaultPaths = new List<string>();
@@ -44,22 +45,48 @@ namespace ModInstaller
             public List<string> Optional { get; set; }
         }
 
+        private struct Skin
+        {
+            public string Name { get; set; }
+
+            public string ZipLink { get; set; }
+
+            public string About { get; set; }
+        }
+
         private class ModField
         {
             public Label Name { get; set; }
 
-            public Button EnableButton { get; set; }
+            public Button EnableButton { get; set; } //
 
             public Button InstallButton { get; set; }
 
             public Button ReadmeButton { get; set; }
 
+            public bool IsSkin { get; set; }
+
             public bool IsInstalled { get; set; }
 
-            public bool IsEnabled { get; set; }
+            private bool isactuallyenabled = false;
+
+            public bool IsEnabled
+            {
+                get 
+                {
+                    if (IsSkin) return false;
+                    else return isactuallyenabled;
+                } 
+                set 
+                {
+                    isactuallyenabled = value;
+                } 
+            }
         }
 
         private List<Mod> _modsList = new List<Mod>();
+
+        private List<Skin> _skinsList = new List<Skin>();
 
         private List<ModField> _modEntries = new List<ModField>();
 
@@ -101,7 +128,7 @@ namespace ModInstaller
             PopulateList();
             FillPanel();
             ResizeUI();
-            Text = "Mod Manager " + Version + " by Gradow";
+            Text = "Skin Installer " + SkinInstallerVersion + " (Fork version " + Version + ")";
         }
         
         #region Loading and building the mod manager
@@ -318,30 +345,45 @@ namespace ModInstaller
                         _currentPatch = mod.Element("Files")?.Element("File")?.Element("Patch")?.Value;
                         break;
                     default:
-                        _modsList.Add
-                        (
-                            new Mod
-                            {
-                                Name = mod.Element("Name")?.Value,
-                                Link = mod.Element("Link")?.Value,
-                                Files = mod.Element("Files")
-                                           ?.Elements("File")
-                                           .ToDictionary
-                                           (
-                                               element => element.Element("Name")?.Value,
-                                               element => element.Element("SHA1")?.Value
-                                           ),
-                                Dependencies = mod.Element("Dependencies")
-                                                  ?.Elements("string")
-                                                  .Select(dependency => dependency.Value)
-                                                  .ToList(),
-                                Optional = mod.Element("Optional")
+                        if (mod.Element("Type")?.Value == "Mod")
+                        {
+                            _modsList.Add
+                            (
+                                new Mod
+                                {
+                                    Name = mod.Element("Name")?.Value,
+                                    Link = mod.Element("Link")?.Value,
+                                    Files = mod.Element("Files")
+                                            ?.Elements("File")
+                                            .ToDictionary
+                                            (
+                                                element => element.Element("Name")?.Value,
+                                                element => element.Element("SHA1")?.Value
+                                            ),
+                                    Dependencies = mod.Element("Dependencies")
+                                            ?.Elements("string")
+                                            .Select(dependency => dependency.Value)
+                                            .ToList(),
+                                    Optional = mod.Element("Optional")
                                               ?.Elements("string")
-                                              .Select(dependency => dependency.Value)
-                                              .ToList()
-                                    ?? new List<string>()
-                            }
-                        );
+                                                .Select(dependency => dependency.Value)
+                                                .ToList()
+                                        ?? new List<string>()
+                                }
+                            );
+                        }
+                        else if (mod.Element("Type")?.Value == "Skin")
+                        {
+                            _skinsList.Add
+                            (
+                                new Skin
+                                {
+                                    Name = mod.Element("Name")?.Value,
+                                    ZipLink = mod.Element("ZipLink")?.Value,
+                                    About = mod.Element("About")?.Value ?? "This \"About\" section is empty."
+                                }
+                            );
+                        }
                         break;
                 }
             }
@@ -465,8 +507,10 @@ namespace ModInstaller
         private void PopulateList()
         {
             List<Mod> modsSortedList = _modsList.OrderBy(mod => mod.Name).ToList();
+            List<Skin> skinsSortedList = _skinsList.OrderBy(mod => mod.Name).ToList();
 
             _modsList = modsSortedList;
+            _skinsList = skinsSortedList;
 
             GetInstalledFiles();
 
@@ -482,7 +526,8 @@ namespace ModInstaller
                     InstallButton = new Button(),
                     ReadmeButton = new Button(),
                     IsInstalled = false,
-                    IsEnabled = false
+                    IsEnabled = false,
+                    IsSkin = false
                 };
                 panel.Controls.Add(entry.Name);
                 panel.Controls.Add(entry.EnableButton);
@@ -493,6 +538,30 @@ namespace ModInstaller
                 _allMods.Add(mod.Name);
             }
 
+            foreach (Skin skin in _skinsList)
+            {
+                if (_allMods.Contains(skin.Name))
+                    continue;
+
+                var entry = new ModField
+                {
+                    Name = new Label(),
+                    EnableButton = new Button(),
+                    InstallButton = new Button(),
+                    ReadmeButton = new Button(),
+                    IsInstalled = false,
+                    IsEnabled = false,
+                    IsSkin = true
+                };
+                panel.Controls.Add(entry.Name);
+                panel.Controls.Add(entry.EnableButton);
+                panel.Controls.Add(entry.InstallButton);
+                panel.Controls.Add(entry.ReadmeButton);
+                entry.Name.Text = skin.Name;
+                _modEntries.Add(entry);
+                _allMods.Add(skin.Name);
+            }
+
             List<ModField> modFieldsSorted = _modEntries.OrderBy(entry => entry.Name.Text).ToList();
             _modEntries = modFieldsSorted;
 
@@ -501,35 +570,70 @@ namespace ModInstaller
 
             foreach (var entry in _modEntries)
             {
-                var panelEntry = new Panel();
-                panelEntry.Size = new Size(450, 33);
-                panelEntry.Controls.Add(entry.Name);
-                panelEntry.Controls.Add(entry.EnableButton);
-                panelEntry.Controls.Add(entry.InstallButton);
-                panelEntry.Controls.Add(entry.ReadmeButton);
-                
-                entry.Name.Left = 20;
-                entry.Name.Top = hgt+5;
-                entry.Name.AutoSize = true;
+                if (!entry.IsSkin)
+                {
+                    var panelEntry = new Panel();
+                    panelEntry.Size = new Size(450, 33);
+                    panelEntry.Controls.Add(entry.Name);
+                    panelEntry.Controls.Add(entry.EnableButton);
+                    panelEntry.Controls.Add(entry.InstallButton);
+                    panelEntry.Controls.Add(entry.ReadmeButton);
 
-                entry.EnableButton.Left = 6 + 150 + space;
-                entry.EnableButton.Top = hgt;
-                entry.EnableButton.Text = entry.IsEnabled ? "Disable" : "Enable";
-                entry.EnableButton.Enabled = entry.IsInstalled;
-                entry.EnableButton.Click += OnEnableButtonClick;
+                    entry.Name.Left = 20;
+                    entry.Name.Top = hgt + 5;
+                    entry.Name.AutoSize = true;
 
-                entry.InstallButton.Left = 6 + 225 + space;
-                entry.InstallButton.Top = hgt;
-                entry.InstallButton.Text = entry.IsInstalled ? "Uninstall" : "Install";
-                entry.InstallButton.Click += OnInstallButtonClick;
+                    entry.EnableButton.Left = 6 + 150 + space;
+                    entry.EnableButton.Top = hgt;
+                    entry.EnableButton.Text = entry.IsEnabled ? "Disable" : "Enable";
+                    entry.EnableButton.Enabled = entry.IsInstalled;
+                    entry.EnableButton.Click += OnEnableButtonClick;
 
-                entry.ReadmeButton.Left = 6 + 300 + space;
-                entry.ReadmeButton.Top = hgt;
-                entry.ReadmeButton.Text = "Readme";
-                entry.ReadmeButton.Enabled = entry.IsInstalled;
-                entry.ReadmeButton.Click += OnReadmeButtonClick;
-                
-                _panelList.Add(panelEntry);
+                    entry.InstallButton.Left = 6 + 225 + space;
+                    entry.InstallButton.Top = hgt;
+                    entry.InstallButton.Text = entry.IsInstalled ? "Uninstall" : "Install";
+                    entry.InstallButton.Click += OnInstallButtonClick;
+
+                    entry.ReadmeButton.Left = 6 + 300 + space;
+                    entry.ReadmeButton.Top = hgt;
+                    entry.ReadmeButton.Text = "Readme";
+                    entry.ReadmeButton.Enabled = entry.IsInstalled;
+                    entry.ReadmeButton.Click += OnReadmeButtonClick;
+
+                    _panelList.Add(panelEntry);
+                }
+                if (entry.IsSkin)
+                {
+                    var panelEntry = new Panel();
+                    panelEntry.Size = new Size(450, 33);
+                    panelEntry.Controls.Add(entry.Name);
+                    panelEntry.Controls.Add(entry.EnableButton);
+                    panelEntry.Controls.Add(entry.InstallButton);
+                    panelEntry.Controls.Add(entry.ReadmeButton);
+
+                    entry.Name.Left = 20;
+                    entry.Name.Top = hgt + 5;
+                    entry.Name.AutoSize = true;
+
+                    entry.EnableButton.Left = 6 + 150 + space;
+                    entry.EnableButton.Top = hgt;
+                    entry.EnableButton.Text = entry.IsEnabled ? "Disable" : "Enable";
+                    entry.EnableButton.Enabled = false;
+                    entry.EnableButton.Click += OnEnableButtonClick;
+
+                    entry.InstallButton.Left = 6 + 225 + space;
+                    entry.InstallButton.Top = hgt;
+                    entry.InstallButton.Text = entry.IsInstalled ? "Uninstall" : "Install";
+                    entry.InstallButton.Click += OnInstallButtonClick;
+
+                    entry.ReadmeButton.Left = 6 + 300 + space;
+                    entry.ReadmeButton.Top = hgt;
+                    entry.ReadmeButton.Text = "About";
+                    entry.ReadmeButton.Enabled = true;
+                    entry.ReadmeButton.Click += OnReadmeButtonClick;
+
+                    _panelList.Add(panelEntry);
+                }
             }
 
             _vanillaEnabled = !SHA1Equals(Properties.Settings.Default.APIFolder + "/Assembly-CSharp.dll", _apiSha1);
@@ -631,36 +735,44 @@ namespace ModInstaller
         {
             var button = (Button) sender;
             ModField entry = _modEntries.First(f => f.ReadmeButton == button);
-            Mod mod = _modsList.First(m => m.Name == entry.Name.Text);
-            string modName = mod.Name;
+            if (entry.IsSkin == false)
+            {
+                Mod mod = _modsList.First(m => m.Name == entry.Name.Text);
+                string modName = mod.Name;
 
-            // The only two possible options are .txt or .md, which follows from the InstallMods method
-            // The same method also describes, the way all readme files are formatted.
-            string readmeModPathNoExtension = $"{Properties.Settings.Default.installFolder}/README({modName})";
-            string readmeModPathTxt = $"{readmeModPathNoExtension}.txt";
-            string readmeModPathMd = $"{readmeModPathNoExtension}.md";
+                // The only two possible options are .txt or .md, which follows from the InstallMods method
+                // The same method also describes, the way all readme files are formatted.
+                string readmeModPathNoExtension = $"{Properties.Settings.Default.installFolder}/README({modName})";
+                string readmeModPathTxt = $"{readmeModPathNoExtension}.txt";
+                string readmeModPathMd = $"{readmeModPathNoExtension}.md";
 
-            // If a readme is created, open it using the default application.
-            if (File.Exists(readmeModPathTxt))
-            {
-                Process.Start(readmeModPathTxt);
-            }
-            else if (File.Exists(readmeModPathMd))
-            {
-                try
+                // If a readme is created, open it using the default application.
+                if (File.Exists(readmeModPathTxt))
                 {
-                    Process.Start(readmeModPathMd);
+                    Process.Start(readmeModPathTxt);
                 }
-                catch
+                else if (File.Exists(readmeModPathMd))
                 {
-                    string tempReadme = Path.GetTempPath() + "HKModInstallerTempReadme.txt";
-                    File.Copy(readmeModPathMd, tempReadme, true);
-                    Process.Start(tempReadme);
+                    try
+                    {
+                        Process.Start(readmeModPathMd);
+                    }
+                    catch
+                    {
+                        string tempReadme = Path.GetTempPath() + "HKModInstallerTempReadme.txt";
+                        File.Copy(readmeModPathMd, tempReadme, true);
+                        Process.Start(tempReadme);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"No readme exists for {modName}.");
                 }
             }
-            else
+            if (entry.IsSkin == true)
             {
-                MessageBox.Show($"No readme exists for {modName}.");
+                Skin skin = _skinsList.First(m => m.Name == entry.Name.Text);
+                MessageBox.Show(skin.About);
             }
         }
 
@@ -668,63 +780,104 @@ namespace ModInstaller
         {
             var button = (Button) sender;
             ModField entry = _modEntries.First(f => f.InstallButton == button);
-            Mod mod = _modsList.First(m => m.Name == entry.Name.Text);
-            string modname = mod.Name;
-
-            if (entry.IsInstalled)
+            if (!entry.IsSkin)
             {
-                DialogResult result = MessageBox.Show
-                (
-                    $"Do you want to remove {modname} from your computer?",
-                    "Confirm removal",
-                    MessageBoxButtons.YesNo
-                );
+                Mod mod = _modsList.First(m => m.Name == entry.Name.Text);
+                string modname = mod.Name;
 
-                if (result != DialogResult.Yes)
-                    return;
-                
-                Uninstall(modname, entry);
-            }
-            else
-            {
-                if (_installedMods.Contains(modname)) return;
-
-                DialogResult result = MessageBox.Show
-                (
-                    $"Do you want to install {modname}?",
-                    "Confirm installation",
-                    MessageBoxButtons.YesNo
-                );
-
-                if (result != DialogResult.Yes) return;
-                
-                InstallDependencies(mod);
-
-                if (mod.Optional.Any())
+                if (entry.IsInstalled)
                 {
-                    foreach (string optional in mod.Optional)
-                    {
-                        if (_installedMods.Contains(optional)) continue;
+                    DialogResult result = MessageBox.Show
+                    (
+                        $"Do you want to remove {modname} from your computer?",
+                        "Confirm removal",
+                        MessageBoxButtons.YesNo
+                    );
 
-                        var optMod = _modEntries.First(opt => opt.Name.Text == optional);
-                        
-                        DialogResult depInstall = MessageBox.Show
-                        (
-                            $"The mod author suggests installing {optional} together with this mod.\nDo you want to install {optional}?",
-                            "Confirm installation",
-                            MessageBoxButtons.YesNo
-                        );
-                        
-                        if (depInstall != DialogResult.Yes) 
-                            continue;
-                        
-                        Install(optional, true, false, true, optMod);
-                        
-                        MessageBox.Show($"{optional} successfully installed!");
+                    if (result != DialogResult.Yes)
+                        return;
+
+                    Uninstall(modname, entry);
+                }
+                else
+                {
+                    if (_installedMods.Contains(modname)) return;
+
+                    DialogResult result = MessageBox.Show
+                    (
+                        $"Do you want to install {modname}?",
+                        "Confirm installation",
+                        MessageBoxButtons.YesNo
+                    );
+
+                    if (result != DialogResult.Yes) return;
+
+                    InstallDependencies(mod);
+
+                    if (mod.Optional.Any())
+                    {
+                        foreach (string optional in mod.Optional)
+                        {
+                            if (_installedMods.Contains(optional)) continue;
+
+                            var optMod = _modEntries.First(opt => opt.Name.Text == optional);
+
+                            DialogResult depInstall = MessageBox.Show
+                            (
+                                $"The mod author suggests installing {optional} together with this mod.\nDo you want to install {optional}?",
+                                "Confirm installation",
+                                MessageBoxButtons.YesNo
+                            );
+
+                            if (depInstall != DialogResult.Yes)
+                                continue;
+
+                            Install(optional, true, false, true, optMod);
+
+                            MessageBox.Show($"{optional} successfully installed!");
+                        }
                     }
+
+                    Install(modname, true, false, true, entry);
+                }
+            }
+            if (entry.IsSkin)
+            {
+                Skin skin = _skinsList.First(m => m.Name == entry.Name.Text);
+                string modname = skin.Name;
+
+                if (entry.IsInstalled)
+                {
+                    DialogResult result = MessageBox.Show
+                    (
+                        $"Uninstall {modname} skin?",
+                        "Confirm removal",
+                        MessageBoxButtons.YesNo
+                    );
+
+                    if (result != DialogResult.Yes)
+                        return;
+
+                    Uninstall(modname, entry);
+                }
+                else
+                {
+                    if (_installedMods.Contains(modname)) return;
+
+                    DialogResult result = MessageBox.Show
+                    (
+                        $"Install {modname} skin?",
+                        "Confirm installation",
+                        MessageBoxButtons.YesNo
+                    );
+
+                    if (result != DialogResult.Yes) return;
+
+                    Install(modname, true, false, true, entry);
                 }
 
-                Install(modname, true, false, true, entry);
+                entry.EnableButton.Text = "Enable";
+                entry.EnableButton.Enabled = false;
             }
         }
 
@@ -845,6 +998,9 @@ namespace ModInstaller
             var modsFolder = new DirectoryInfo(Properties.Settings.Default.modFolder);
             FileInfo[] modsFiles = modsFolder.GetFiles("*.dll");
 
+            var skinsFolder = new DirectoryInfo(Properties.Settings.Default.modFolder + "/CustomKnight");
+            DirectoryInfo[] skins = skinsFolder.GetDirectories();
+
             if (!Directory.Exists($"{Properties.Settings.Default.modFolder}/Disabled"))
                 Directory.CreateDirectory($"{Properties.Settings.Default.modFolder}/Disabled");
 
@@ -853,6 +1009,8 @@ namespace ModInstaller
 
             foreach (FileInfo modsFile in modsFiles)
             {
+                if (modsFile.Name != "ModCommon.dll" && modsFile.Name != "Assembly-CSharp.dll")
+                    continue;
                 Mod mod;
 
                 var entry = new ModField
@@ -901,7 +1059,56 @@ namespace ModInstaller
                 _installedMods.Add(mod.Name);
             }
 
-            foreach (FileInfo file in disabledFiles)
+            foreach (DirectoryInfo skinz in skins)
+            {
+                Skin skin;
+
+                var entry = new ModField
+                {
+                    Name = new Label(),
+                    EnableButton = new Button(),
+                    InstallButton = new Button(),
+                    ReadmeButton = new Button(),
+                    IsEnabled = false,
+                    IsInstalled = true,
+                    IsSkin = true
+                };
+
+                panel.Controls.Add(entry.Name);
+                panel.Controls.Add(entry.EnableButton);
+                entry.EnableButton.Enabled = false;
+                panel.Controls.Add(entry.InstallButton);
+                panel.Controls.Add(entry.ReadmeButton);
+                entry.ReadmeButton.Text = "About";
+                entry.IsSkin = true;
+
+                bool isGDriveMod = _skinsList.Any(m => m.Name.Contains(skinz.Name));
+
+                if (isGDriveMod)
+                {
+                    skin = _skinsList.First(m => m.Name.Contains(skinz.Name));
+                }
+                else
+                {
+                    skin = new Skin
+                    {
+                        Name = skinz.Name,
+                        ZipLink = "",
+                        About = "This skin is a local skin not downloaded from the Skin Installer."
+                    };
+                }
+
+                if (string.IsNullOrEmpty(skin.Name) || _allMods.Contains(skin.Name))
+                    continue;
+
+                entry.Name.Text = skin.Name;
+                _modEntries.Add(entry);
+                _skinsList.Add(skin);
+                _allMods.Add(skin.Name);
+                _installedMods.Add(skin.Name);
+            }
+
+            /*foreach (FileInfo file in disabledFiles)
             {
                 Mod mod;
 
@@ -947,7 +1154,7 @@ namespace ModInstaller
                 _modEntries.Add(entry);
                 _allMods.Add(mod.Name);
                 _installedMods.Add(mod.Name);
-            }
+            }*/
 
             foreach ((FileInfo file, bool enabled) in modsFiles.Select(x => (x, true)).Union(disabledFiles.Select(x => (x, false))))
             {
@@ -1052,57 +1259,96 @@ namespace ModInstaller
         {
             if (isInstall)
             {
-                Download
-                (
-                    new Uri(_modsList.First(m => m.Name == modname).Link),
-                    $"{Properties.Settings.Default.modFolder}/{modname}.zip",
-                    modname
-                );
+                if (!entry.IsSkin)
+                {
+                    Download
+                    (
+                        new Uri(_modsList.First(m => m.Name == modname).Link),
+                        $"{Properties.Settings.Default.modFolder}/{modname}.zip",
+                        modname
+                    );
 
-                InstallMods
-                (
-                    $"{Properties.Settings.Default.modFolder}/{modname}.zip",
-                    Properties.Settings.Default.temp,
-                    isEnabled
-                );
+                    InstallMods
+                    (
+                        $"{Properties.Settings.Default.modFolder}/{modname}.zip",
+                        Properties.Settings.Default.temp,
+                        isEnabled,
+                        false
+                    );
 
-                File.Delete($"{Properties.Settings.Default.modFolder}/{modname}.zip");
+                    File.Delete($"{Properties.Settings.Default.modFolder}/{modname}.zip");
 
-                MessageBox.Show(isUpdate ? $"{modname} successfully updated!" : $"{modname} successfully installed!");
+                    MessageBox.Show(isUpdate ? $"{modname} successfully updated!" : $"{modname} successfully installed!");
+                }
+                if (entry.IsSkin)
+                {
+                    Skin instSkin = _skinsList.First(m => m.Name == entry.Name.Text);
+
+                    Download
+                    (
+                        new Uri(_skinsList.First(m => m.Name == modname).ZipLink),
+                        $"{Properties.Settings.Default.modFolder}/CustomKnight/{modname}.zip",
+                        modname
+                    );
+
+                    InstallMods
+                    (
+                        $"{Properties.Settings.Default.modFolder}/CustomKnight/{modname}.zip",
+                        Properties.Settings.Default.temp,
+                        true,
+                        true
+                    );
+
+                    File.Delete($"{Properties.Settings.Default.modFolder}/{modname}.zip");
+
+                    MessageBox.Show(isUpdate ? $"{modname} successfully updated!" : $"{modname} successfully installed!");
+                }
             }
             else
             {
-                Mod mod = _modsList.First(m => m.Name == entry.Name.Text);
-                
-                string readmeModPathNoExtension = $"{Properties.Settings.Default.installFolder}/README({mod.Name})";
-                string readmeModPathTxt = $"{readmeModPathNoExtension}.txt";
-                string readmeModPathMd = $"{readmeModPathNoExtension}.md";
-                
-                foreach (string s in mod.Files.Keys)
+                if (!entry.IsSkin)
                 {
-                    if (File.Exists($"{Properties.Settings.Default.modFolder}/{s}"))
+                    Mod mod = _modsList.First(m => m.Name == entry.Name.Text);
+
+                    string readmeModPathNoExtension = $"{Properties.Settings.Default.installFolder}/README({mod.Name})";
+                    string readmeModPathTxt = $"{readmeModPathNoExtension}.txt";
+                    string readmeModPathMd = $"{readmeModPathNoExtension}.md";
+
+                    foreach (string s in mod.Files.Keys)
                     {
-                        File.Delete($"{Properties.Settings.Default.modFolder}/{s}");
+                        if (File.Exists($"{Properties.Settings.Default.modFolder}/{s}"))
+                        {
+                            File.Delete($"{Properties.Settings.Default.modFolder}/{s}");
+                        }
                     }
-                }
 
-                foreach (string directory in Directory.EnumerateDirectories(Properties.Settings.Default.modFolder))
-                {
-                    if (!Directory.EnumerateFileSystemEntries(directory).Any() && directory != "Disabled")
-                        Directory.Delete(directory);
-                }
+                    foreach (string directory in Directory.EnumerateDirectories(Properties.Settings.Default.modFolder))
+                    {
+                        if (!Directory.EnumerateFileSystemEntries(directory).Any() && directory != "Disabled")
+                            Directory.Delete(directory);
+                    }
 
-                if (File.Exists(readmeModPathTxt))
-                {
-                    File.Delete(readmeModPathTxt);
-                }
-                else if (File.Exists(readmeModPathMd))
-                {
-                    File.Delete(readmeModPathMd);
-                }
+                    if (File.Exists(readmeModPathTxt))
+                    {
+                        File.Delete(readmeModPathTxt);
+                    }
+                    else if (File.Exists(readmeModPathMd))
+                    {
+                        File.Delete(readmeModPathMd);
+                    }
 
-                MessageBox.Show($"{modname} successfully uninstalled!");
-                _installedMods.Remove(modname);
+                    MessageBox.Show($"{modname} successfully uninstalled!");
+                    _installedMods.Remove(modname);
+                }
+                if (entry.IsSkin)
+                {
+                    Skin skin = _skinsList.First(m => m.Name == entry.Name.Text);
+
+                    Directory.Delete($"{Properties.Settings.Default.modFolder}/CustomKnight/{skin.Name}", true);
+
+                    MessageBox.Show($"{modname} successfully uninstalled!");
+                    _installedMods.Remove(modname);
+                }
             }
             
             entry.IsInstalled = !entry.IsInstalled;
@@ -1111,6 +1357,12 @@ namespace ModInstaller
             entry.EnableButton.Enabled = entry.IsInstalled;
             entry.EnableButton.Text = entry.IsInstalled ? "Disable" : "Enable";
             entry.ReadmeButton.Enabled = entry.IsInstalled;
+            if (entry.IsSkin)
+            {
+                entry.ReadmeButton.Enabled = true;
+                entry.EnableButton.Text = "Enable";
+                entry.EnableButton.Enabled = false;
+            }
         }
 
         private void Uninstall(string mod, ModField entry) => Install(mod, false, false, false, entry);
@@ -1181,7 +1433,7 @@ namespace ModInstaller
             Properties.Settings.Default.Save();
         }
 
-        private void InstallMods(string mod, string tempFolder, bool isEnabled)
+        private void InstallMods(string mod, string tempFolder, bool isEnabled, bool isSkin)
         {
             if (Directory.Exists(Properties.Settings.Default.temp))
                 Directory.Delete(tempFolder, true);
@@ -1191,44 +1443,58 @@ namespace ModInstaller
             ZipFile.ExtractToDirectory(mod, tempFolder);
             List<string> files = Directory.EnumerateFiles(tempFolder, "*", SearchOption.AllDirectories).ToList();
 
-            foreach (string file in files)
-            {
-                switch (Path.GetExtension(file))
+            if (!isSkin) {
+                foreach (string file in files)
                 {
-                    case ".dll":
-                        File.Copy
-                        (
-                            file,
-                            isEnabled
-                                ? $"{Properties.Settings.Default.modFolder}/{Path.GetFileName(file)}"
-                                : $"{Properties.Settings.Default.modFolder}/Disabled/{Path.GetFileName(file)}",
-                            true
-                        );
-                        break;
-                    case ".txt":
-                    case ".md":
-                        File.Copy
-                        (
-                            file,
-                            $"{Properties.Settings.Default.installFolder}/{Path.GetFileNameWithoutExtension(file)}({Path.GetFileNameWithoutExtension(mod)}){Path.GetExtension(file)}",
-                            true
-                        );
-                        break;
-                    case ".ini":
-                        break;
-                    default:
-                        string path = Path.GetDirectoryName(file)
-                                          ?.Replace
-                                          (
-                                              Properties.Settings.Default.temp,
-                                              Properties.Settings.Default.installFolder
-                                          );
-                        if (!Directory.Exists(path))
-                            if (path != null)
-                                Directory.CreateDirectory(path);
-                        File.Copy(file, $"{path}/{Path.GetFileName(file)}", true);
-                        break;
+                    switch (Path.GetExtension(file))
+                    {
+                        case ".dll":
+                            File.Copy
+                            (
+                                file,
+                                isEnabled
+                                    ? $"{Properties.Settings.Default.modFolder}/{Path.GetFileName(file)}"
+                                    : $"{Properties.Settings.Default.modFolder}/Disabled/{Path.GetFileName(file)}",
+                                true
+                            );
+                            break;
+                        case ".txt":
+                        case ".md":
+                            File.Copy
+                            (
+                                file,
+                                $"{Properties.Settings.Default.installFolder}/{Path.GetFileNameWithoutExtension(file)}({Path.GetFileNameWithoutExtension(mod)}){Path.GetExtension(file)}",
+                                true
+                            );
+                            break;
+                        case ".ini":
+                            break;
+                        default:
+                            string path = Path.GetDirectoryName(file)
+                                              ?.Replace
+                                              (
+                                                  Properties.Settings.Default.temp,
+                                                  Properties.Settings.Default.installFolder
+                                              );
+                            if (!Directory.Exists(path))
+                                if (path != null)
+                                    Directory.CreateDirectory(path);
+                            File.Copy(file, $"{path}/{Path.GetFileName(file)}", true);
+                            break;
+                    }
                 }
+            }
+
+            if (isSkin)
+            {
+                string modzip = mod;
+                mod = Path.GetFileNameWithoutExtension(mod);
+                foreach (string file in files)
+                {
+                    if (!Directory.Exists($"{Properties.Settings.Default.modFolder}/CustomKnight/{mod}")) Directory.CreateDirectory($"{Properties.Settings.Default.modFolder}/CustomKnight/{mod}");
+                    File.Copy(file, $"{Properties.Settings.Default.modFolder}/CustomKnight/{mod}/{Path.GetFileName(file)}");
+                }
+                File.Delete(modzip);
             }
 
             Directory.Delete(tempFolder, true);
