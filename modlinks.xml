@@ -56,7 +56,13 @@
 			<Type>Skin</Type>
 			<Name>TEST SKIN</Name>
 			<ZipLink>Test</ZipLink>
-			<About>THIS IS A TEST POGCHAMP</About>
+			<About>This is a test skin, installing it actually causes an error because the link is invalid but you get the point</About>
+		</ModLink>
+		<ModLink>
+			<Type>Skin</Type>
+			<Name>Graig Knight</Name>
+			<ZipLink>https://drive.google.com/uc?export=download&id=1tmrY8ESKNRXyKhV93Uat2JCrvGjpwYby</ZipLink>
+			<About>Skin by Graig.</About>
 		</ModLink>
 	</ModList>
 </ModLinks>
